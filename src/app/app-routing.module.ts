@@ -4,12 +4,10 @@ import { PRIVATE_ROUTES, PUBLIC_ROUTES, WILDCARD_ROUTE } from '@router/index';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(
-      [...PUBLIC_ROUTES, ...PRIVATE_ROUTES, WILDCARD_ROUTE],
-      {
-        preloadingStrategy: PreloadAllModules,
-      },
-    ),
+    RouterModule.forRoot([...PUBLIC_ROUTES, ...PRIVATE_ROUTES, WILDCARD_ROUTE], {
+    preloadingStrategy: PreloadAllModules,
+    initialNavigation: 'enabled'
+}),
   ],
   exports: [RouterModule],
 })

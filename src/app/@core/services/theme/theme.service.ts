@@ -1,8 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { getItem, setItem, StorageItem } from '@app/@core/utils';
-import { fromEventPattern, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { defaultBaseTheme, ThemeList } from './theme.config';
 
 @Injectable({
@@ -11,14 +10,14 @@ import { defaultBaseTheme, ThemeList } from './theme.config';
 export class ThemeService implements OnDestroy {
   destroy$ = new Subject();
 
-  private readonly mediaQuery = window.matchMedia(
-    '(prefers-color-scheme: dark)',
-  );
+  // private readonly mediaQuery = window.matchMedia(
+  //   '(prefers-color-scheme: dark)',
+  // );
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   get systemTheme(): ThemeList.Light | ThemeList.Dark {
-    return this.mediaQuery.matches ? ThemeList.Dark : ThemeList.Light;
+    return ThemeList.Light;
   }
 
   get currentAppTheme(): ThemeList {
@@ -63,17 +62,17 @@ export class ThemeService implements OnDestroy {
    *
    */
   private listenForMediaQueryChanges(): void {
-    fromEventPattern<MediaQueryListEvent>(
-      this.mediaQuery.addListener.bind(this.mediaQuery),
-      this.mediaQuery.removeListener.bind(this.mediaQuery),
-    )
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        // Only applies changes when the current theme is "system"
-        if (this.currentAppTheme === ThemeList.System) {
-          this.setTheme(ThemeList.System);
-        }
-      });
+    // fromEventPattern<MediaQueryListEvent>(
+    //   this.mediaQuery.addListener.bind(this.mediaQuery),
+    //   this.mediaQuery.removeListener.bind(this.mediaQuery),
+    // )
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(() => {
+    //     // Only applies changes when the current theme is "system"
+    //     if (this.currentAppTheme === ThemeList.System) {
+    //       this.setTheme(ThemeList.System);
+    //     }
+    //   });
   }
 
   /**
