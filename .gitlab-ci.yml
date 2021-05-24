@@ -1,0 +1,24 @@
+stages:
+  - test
+  - deploy
+
+ci-test:
+  stage: test
+  before_script:
+    - npm install @angular/cli@7.3.6 --quiet
+    - npm install python3 --quiet
+    - npm install node-sass --save-dev --quiet
+    - npm install --quiet
+  script:
+    - npm run test:unit
+
+ci-deploy:
+  stage: deploy
+  before_script:
+    - npm install @angular/cli@7.3.6 --quiet
+    - npm install python3 --quiet
+    - npm install node-sass --save-dev --quiet
+    - npm install --quiet
+  script:
+    - npm run build:prod
+    - npm run serve:ssr

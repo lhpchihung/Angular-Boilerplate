@@ -12,4 +12,9 @@ describe('SeoService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should be init success', () => {
+    service.init();
+    expect(service).toBeTruthy();
+  });
 });
